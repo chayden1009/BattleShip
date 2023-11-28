@@ -1,0 +1,25 @@
+BATTLESHIP
+
+STATE VARIABLES:
+    turn: 1 or -1
+    winner: 1, -1, or null, only has value if all enemy ships are sunk
+
+
+GAME_STATES:
+
+-GAME_SETUP:
+    generate 10 x 10 board
+    generate 5 ships for each player:
+        Carrier(5 spaces)
+        Battleship(4 spaces)
+        Cruiser(3 spaces)
+        submarine(3 spaces)
+        Destroyer(2 spaces)
+    Randomly place cpu ships
+    Allow player to place and rotate ships assigned to them
+    Once all ships are placed, GAME_START()
+
+-GAME-START:
+    -event listener gets player input on enemy board, fire at that position, if position is occupied, mark position as a hit, else mark it as a miss
+    -on computer turn, choose random quordinate and fire at position;
+    -after firing, check winner
