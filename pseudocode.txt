@@ -22,4 +22,4 @@ GAME_STATES:
 -GAME-START:
     -event listener gets player input on enemy board, fire at that position, if position is occupied, mark position as a hit, else mark it as a miss
     -on computer turn, choose random quordinate and fire at position;
-    -after firing, check winner
+    -after firing, check winner by seeing how many ships each player has left
