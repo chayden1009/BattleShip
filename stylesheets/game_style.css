@@ -6,12 +6,39 @@
 body {
     margin-top: 2vmin;
     background-color: #021900;
+    text-align: center;
     
+}
+
+body > #statusMessage {
+    margin-top: 3vmin;
 }
 
 header {
     margin-top: 2vmin;
     text-align: center;    
+    display: flex;
+    justify-content: center;
+}
+
+nav {
+    margin-top: 4vmin;
+    margin-bottom: -3vmin;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 4vmin;
+}
+
+.ship {
+    display:grid;
+    grid-template-columns: repeat(5, 6vmin [col-start]);
+}
+
+.shipSpace {
+    border: solid 1px white;
+    background-color: #09c900;
 }
 
 .board {

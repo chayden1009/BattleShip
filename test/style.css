@@ -1,0 +1,10 @@
+#board1 {
+    display: grid;
+    border: solid 2px black;
+    grid-template-columns: repeat(10, 6vmin [col-start]);
+    grid-template-columns: repeat(10, 6vmin [row-start]);
+}
+
+.spaces {
+    border: solid 1px black;
+}

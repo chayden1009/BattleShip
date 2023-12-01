@@ -7,14 +7,26 @@
     <title>BATTLESHIP</title>
 
     <link rel="stylesheet" href="./stylesheets/game_style.css">
-    <script defer src="./js/game.js"></script>
+    <script defer src="./js/game-page/game.js"></script>
 </head>
 <body>
     <header>
         <h1>BATTLESHIP</h1>
-        <h3>STATUS UPDATE</h3>
     </header>
-
+    <h3 id="statusMessage">STATUS UPDATE</h3>
+    <nav>
+        <div class="ship" id="1carrier" draggable="true">
+            <div class="shipSpace"></div>
+            <div class="shipSpace"></div>
+            <div class="shipSpace"></div>
+            <div class="shipSpace"></div>
+            <div class="shipSpace"></div>
+        </div>
+        <div>SUBMARINE</div>
+        <div>DESTROYER</div>
+        <div>SHIP</div>
+        <div>SHIP</div>
+    </nav>
     <div class="board" >
         <board id="board1">
             
