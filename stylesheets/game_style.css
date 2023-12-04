@@ -31,6 +31,20 @@ nav {
     height: 4vmin;
 }
 
+button {
+    margin-top: 2vmin;
+    height: 5vmin;
+    width: 8vmin;
+    background-color: #021900;
+    border: solid 1px #09c900
+}
+
+button:hover {
+    cursor: pointer;
+    color: #021900;
+    background-color: #09c900;
+}
+
 .ship {
     display:grid;
     grid-template-columns: repeat(5, 6vmin [col-start]);
