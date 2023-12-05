@@ -8,14 +8,14 @@ const buttonEl = document.querySelector('button')
 class Player {
     constructor(turnId, enemyBoard){
         this.board = [
-            [1, 1, 1, 1, 0, 0, 0, 0, 0, 0], //row 0
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //row 0
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //row 1
-            [0, 0, 0, 1, 1, 1, 1, 1, 0, 0], //row 2
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //row 2
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 0, 0, 1, 1, 0, 0],
-            [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         ];
@@ -68,10 +68,12 @@ const playerAttack = (enemy) => {
                 messageEl.innerText = 'MISS';
                 
             } else if (enemy[targetRow][targetCol] === 1) {
+                enemy[targetRow][targetCol] = -1;
                 document.querySelector(`#board2 > #r${targetRow}c${targetCol}`).innerHTML = '<div class="hit"></div>';
                 messageEl.innerText = 'HIT';
             }
-            gameStart();
+            
+        getWinner(player1.board, enemy);
         }, {once: true})  
     }, {once: true})
 }
@@ -84,19 +86,23 @@ const cpuAttack = (enemy) => {
     let targetCol = Math.floor(Math.random() * 9) + 1;
     let targetCell = document.querySelector(`#board1 > #r${targetRow}c${targetCol}`);
 
-    if (enemy[targetRow][targetCol] === 0 && turn === -1) {
+    if (enemy[targetRow][targetCol] === 0) {
         messageEl.innerText = 'MISS';
         targetCell.innerHTML = '<div class="miss"></div>';
-    } else if (enemy[targetRow][targetCol] === 1 && turn === -1) {
-        targetCell.style.background = 'red';
+    } else if (enemy[targetRow][targetCol] === 1) {
+        console.log(enemy)
         enemy[targetRow][targetCell] = -1;
-        console.log(enemy[targetRow][targetCol])
+        targetCell.style.background = 'red';
     } 
-    gameStart();
+    getWinner(player2, enemy);
 }
 
-const getWinner = (playerBoard, enemyBoard) => {
-
+const getWinner = (player, enemyBoard) => {
+    if (!enemyBoard.some(row => row.includes(1)) && enemyBoard.some(row => row.includes(-1))) {
+        winner = player.turnId;
+        messageEl.innerText = 'Player 2 Wins';
+        return;
+    } else gameStart();
 }
 
 const generateBoards = (playerBoard, enemyBoard) => {
@@ -105,7 +111,6 @@ const generateBoards = (playerBoard, enemyBoard) => {
     playerBoard.forEach((rowArr, rowIdx) => {
         rowArr.forEach((cellVal, colIdx) => {
             const board1CellId = `r${rowIdx}c${colIdx}`;
-            const board1Cell = document.querySelector(`#${board1CellId}`);
             playerContainer.innerHTML += `<div class="spaces" id=${board1CellId}></div>`
             
         })
@@ -133,19 +138,13 @@ const gamePrep = () => {
 }
 
 const gameStart = () => {
+    
     turn = turn === -1 ? 1: -1;
     console.log(turn);
-    if (!player1.board.includes(1)) {
-        winner = -1;
-    } else if (!player2.includes(-1)) {
-        console.log('Player 1 wins!')
-        winner = 1;
-    }
-
+    
     if (turn === 1) {
         messageEl.innerHTML = 'SELECT A TARGET';
-        playerAttack(player2.board);
-    
+        playerAttack(player2.board);      
     } else if (turn === -1) {
         messageEl.innerHTML = 'ENEMY ATTACKING';
         setTimeout(cpuAttack, 3000);
