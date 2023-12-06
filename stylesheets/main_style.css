@@ -1,0 +1,32 @@
+* {
+    background-color: #021900;
+    color: #0c9300;
+    text-align: center;
+}
+
+article {
+    text-align: left;
+}
+
+li {
+    text-align: left;
+}
+
+footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    height: 30vmin;
+}
+
+button {
+    border: solid 1px #0c9300;
+    height: 5vmin;
+}
+
+button:hover {
+    cursor: pointer;
+    background: #0c9300;
+    color: #021900;
+    border: solid 1px #021900;
+}
