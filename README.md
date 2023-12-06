@@ -7,11 +7,14 @@ The aim of this project is to recreate the game in a browser environment with fu
 ## Getting Started
 *** 
 ## Credits
-[Drag and Drop API](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API#interfaces)
-
-[Example of checking values in 2D array](https://stackoverflow.com/questions/48538162/how-to-check-if-a-two-dimensional-array-includes-a-string) <br>
+[Drag and Drop API](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API#interfaces)<br>
+[Example of checking values in 2D array](https://stackoverflow.com/questions/48538162/how-to-check-if-a-two-dimensional-array-includes-a-string)
+<br> 
+[Battleship Rules](https://www.cs.nmsu.edu/~bdu/TA/487/brules.htm)
+<br>
 *** 
 ## Further Information:
+
 [Wireframe](https://excalidraw.com/#json=1C3dmuPQg5-UAGSRn8kem,8qV1wIsqgrEfhBNDC--tdg) <br>
 [Surge Deployment](https://caleb_hayden_battleship.surge.sh)
 
