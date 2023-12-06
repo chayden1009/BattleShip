@@ -97,7 +97,6 @@ const cpuRandShip = (shipLength) => {
     let orientation = 1;
     let targetRow = Math.floor(Math.random() * 9) + 1;
     let targetCol = Math.floor(Math.random() * 9) + 1;
-    let target = player2.board[targetRow][targetCol];
 
     if (player2.board[targetRow][targetCol] !== 0) {
         cpuRandShip();
@@ -105,12 +104,12 @@ const cpuRandShip = (shipLength) => {
 
     if (orientation === 1 && targetCol <= 5) {
         for (let i = 0; i < shipLength; i++) {
-            target = 1;
+            player2.board[targetRow][targetCol] = 1;
             targetCol += 1;
         }
     } else if (orientation === 1 && targetCol >= 5) {
         for (let i = 0; i < shipLength; i++) {
-            target = 1;
+            player2.board[targetRow][targetCol] = 1;
             targetCol -= 1;
         }
     } 
