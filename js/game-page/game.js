@@ -138,7 +138,6 @@ const cpuAttack = (enemy) => {
         messageEl.innerText = 'MISS';
         targetCell.innerHTML = '<div class="miss"></div>';
     } else if (enemy[targetRow][targetCol] === 1) {
-        console.log(enemy)
         enemy[targetRow][targetCell] = -1;
         targetCell.style.background = 'red';
     } 
@@ -226,7 +225,6 @@ const gameStart = () => {
     buttonEl.style.visibility = 'hidden';
 
     turn = turn === -1 ? 1: -1;
-    console.log(turn);
     
     if (turn === 1) {
         messageEl.innerHTML = 'SELECT A TARGET';
