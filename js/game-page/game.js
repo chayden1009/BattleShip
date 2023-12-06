@@ -4,6 +4,47 @@ const enemyContainer = document.querySelector('#board2')
 const messageEl = document.querySelector('#statusMessage')
 const buttonEl = document.querySelector('button')
 
+// state variables
+
+class Ship {
+    constructor(orientation) {
+        this.orientation = orientation; 
+    }
+}
+
+class Carrier extends Ship {
+    constructor(orientation) {
+        super(orientation);
+        this.length = 5;
+    }
+}
+
+class Battleship extends Ship {
+    constructor(orientation) {
+        super(orientation);
+        this.length = 4;
+    }
+}
+
+class Cruiser extends Ship {
+    constructor(orientation) {
+        super(orientation);
+        this.length = 3;
+    }
+}
+
+class Submarine extends Ship {
+    constructor(orientation) {
+        super(orientation);
+        this.length = 3;
+    }
+}
+
+class Destroyer extends Ship {
+    constructor() {
+        this.length = 2;
+    }
+}
 
 class Player {
     constructor(turnId, enemyBoard){
@@ -31,16 +72,25 @@ class CPU extends Player {
     }
 }
 
-// state variables
 
 const player1 = new Player(1);
 const player2 = new CPU(-1);
 
 
-let winner;
+let winner = null;
 let turn; // 1 or -1
-
-
+player1.board = [
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], //row 0
+    [0, 1, 0, 1, 1, 1, 0, 0, 0, 0], //row 1
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], //row 2
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 1, 1, 1, 1, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
 
 // event listeners
 
@@ -65,12 +115,10 @@ const playerAttack = (enemy) => {
             
             if (enemy[targetRow][targetCol] === 0) {
                 document.querySelector(`#board2 > #r${targetRow}c${targetCol}`).innerHTML = '<div class="miss"></div>';
-                messageEl.innerText = 'MISS';
                 
             } else if (enemy[targetRow][targetCol] === 1) {
                 enemy[targetRow][targetCol] = -1;
                 document.querySelector(`#board2 > #r${targetRow}c${targetCol}`).innerHTML = '<div class="hit"></div>';
-                messageEl.innerText = 'HIT';
             }
             
         getWinner(player1.board, enemy);
@@ -97,11 +145,46 @@ const cpuAttack = (enemy) => {
     getWinner(player2, enemy);
 }
 
+const cpuRandShip = (shipLength) => {
+    let orientation = 1;
+    let targetRow = Math.floor(Math.random() * 9) + 1;
+    let targetCol = Math.floor(Math.random() * 9) + 1;
+    let target = player2.board[targetRow][targetCol];
+
+    if (player2.board[targetRow][targetCol] !== 0) {
+        cpuRandShip();
+    }
+
+    if (orientation = 1 && targetCol <= 5) {
+        for (let i = 0; i < shipLength; i++) {
+            player2.board[targetRow][targetCol] = 1;
+            targetCol += 1;
+        }
+    } else if (orientation = 1 && targetCol >= 5) {
+        for (let i = 0; i < shipLength; i++) {
+            player2.board[target][targetCol] = 1;
+            targetCol -= 1;
+        }
+    }
+}
+
+const gameWon = () => {
+    if (winner === 1) {
+        messageEl.innerText = 'Player Wins!'
+    } else if (winner === -1) {
+        messageEl.innerText = 'Computer Wins!'
+    }
+
+    buttonEl.innerText = 'PLAY AGAIN'
+    buttonEl.addEventListener('click', function(){
+        init();
+    }, {once: true})
+}
+
 const getWinner = (player, enemyBoard) => {
     if (!enemyBoard.some(row => row.includes(1)) && enemyBoard.some(row => row.includes(-1))) {
         winner = player.turnId;
-        messageEl.innerText = 'Player 2 Wins';
-        return;
+        gameWon();
     } else gameStart();
 }
 
@@ -111,7 +194,10 @@ const generateBoards = (playerBoard, enemyBoard) => {
     playerBoard.forEach((rowArr, rowIdx) => {
         rowArr.forEach((cellVal, colIdx) => {
             const board1CellId = `r${rowIdx}c${colIdx}`;
-            playerContainer.innerHTML += `<div class="spaces" id=${board1CellId}></div>`
+            playerContainer.innerHTML += `<div class="spaces" id=${board1CellId}></div>`;
+            if (playerBoard[rowIdx][colIdx] === 1) {
+                document.getElementById(`r${rowIdx}c${colIdx}`).style.background = '#09c900'
+            } 
             
         })
     })
@@ -126,19 +212,19 @@ const generateBoards = (playerBoard, enemyBoard) => {
 const gamePrep = () => {
     messageEl.innerText = "ASSEMBLE YOUR FLEET";
     buttonEl.innerText = "READY";
-    player1.board.forEach((rowArr, rowIdx) => {
-        rowArr.forEach((cellVal, colIdx) => {
-            const board1El = document.getElementById(`r${rowIdx}c${colIdx}`);
-            if (cellVal === 1) {
-                board1El.style.background = '#09c900';
-            }
-        })
-    })
+    cpuRandShip(5);
+    cpuRandShip(4);
+    cpuRandShip(3);
+    cpuRandShip(3);
+    cpuRandShip(2);
+    
     buttonEl.addEventListener('click', gameStart, {once: true})
 }
 
 const gameStart = () => {
-    
+    document.querySelector('nav').style.visibility = 'hidden';
+    buttonEl.style.visibility = 'hidden';
+
     turn = turn === -1 ? 1: -1;
     console.log(turn);
     
@@ -154,7 +240,18 @@ const gameStart = () => {
 
 const init = () => {
     turn = -1;
-    winner = null;
+    player1.board = [
+        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], //row 0
+        [0, 1, 0, 1, 1, 1, 0, 0, 0, 0], //row 1
+        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], //row 2
+        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [1, 0, 0, 1, 1, 1, 1, 0, 0, 0],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
 
     generateBoards(player1.board, player2.board);
     gamePrep();
