@@ -1,4 +1,4 @@
-# BattleShip
+# Battleship
 ## Description
 Battleship is played with 2 players. Each is given 5 ships to place on their board which the enemy cannot see. The goal of both players is to guess where the enemy ships are, and track where a hit was registered, doing so continuously until the enemy has no ships left.
 
