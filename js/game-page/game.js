@@ -6,48 +6,9 @@ const buttonEl = document.querySelector('button')
 
 // state variables
 
-class Ship {
-    constructor(orientation) {
-        this.orientation = orientation; 
-    }
-}
-
-class Carrier extends Ship {
-    constructor(orientation) {
-        super(orientation);
-        this.length = 5;
-    }
-}
-
-class Battleship extends Ship {
-    constructor(orientation) {
-        super(orientation);
-        this.length = 4;
-    }
-}
-
-class Cruiser extends Ship {
-    constructor(orientation) {
-        super(orientation);
-        this.length = 3;
-    }
-}
-
-class Submarine extends Ship {
-    constructor(orientation) {
-        super(orientation);
-        this.length = 3;
-    }
-}
-
-class Destroyer extends Ship {
-    constructor() {
-        this.length = 2;
-    }
-}
 
 class Player {
-    constructor(turnId, enemyBoard){
+    constructor(turnId){
         this.board = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //row 0
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //row 1
@@ -79,18 +40,6 @@ const player2 = new CPU(-1);
 
 let winner = null;
 let turn; // 1 or -1
-player1.board = [
-    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], //row 0
-    [0, 1, 0, 1, 1, 1, 0, 0, 0, 0], //row 1
-    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], //row 2
-    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0, 0, 1, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 1, 1, 1, 1, 0, 0, 0],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-]
 
 // event listeners
 
@@ -154,17 +103,17 @@ const cpuRandShip = (shipLength) => {
         cpuRandShip();
     }
 
-    if (orientation = 1 && targetCol <= 5) {
+    if (orientation === 1 && targetCol <= 5) {
         for (let i = 0; i < shipLength; i++) {
-            player2.board[targetRow][targetCol] = 1;
+            target = 1;
             targetCol += 1;
         }
-    } else if (orientation = 1 && targetCol >= 5) {
+    } else if (orientation === 1 && targetCol >= 5) {
         for (let i = 0; i < shipLength; i++) {
-            player2.board[target][targetCol] = 1;
+            target = 1;
             targetCol -= 1;
         }
-    }
+    } 
 }
 
 const gameWon = () => {

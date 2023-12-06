@@ -47,7 +47,7 @@ button:hover {
 
 .ship {
     display:grid;
-    grid-template-columns: repeat(5, 6vmin [col-start]);
+    grid-template-columns: repeat(5, 4vmin [col-start]);
 }
 
 .shipSpace {
